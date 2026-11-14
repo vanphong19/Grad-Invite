@@ -6,7 +6,13 @@ import { CardImage } from "@/components/ui/card-image";
 
 export function InvitationSection() {
   return (
-    <section id="invitation-content" className="invitation-page" aria-labelledby="invitation-title" aria-label="Trang 2: Nội dung thiệp mời" tabIndex={-1}>
+    <section
+      id="invitation-content"
+      className="invitation-page"
+      aria-labelledby="invitation-title"
+      aria-label="Trang 2: Nội dung thiệp mời"
+      tabIndex={-1}
+    >
       <div className="invitation-heading">
         <div className="invitation-intro">
           <p className="invitation-eyebrow">LỄ TỐT NGHIỆP</p>
@@ -28,24 +34,55 @@ export function InvitationSection() {
       <div className="event-datetime">
         <time className="event-date" dateTime={invitation.date}>
           <span className="event-weekday">Ngày làm lễ</span>
-          <span className="event-date-main"><span className="event-day">{invitationDateParts.day}</span><span className="event-month">{invitationDateParts.month}<span className="event-year">{invitationDateParts.year}</span></span></span>
+          <span className="event-date-main">
+            <span className="event-day">{invitationDateParts.day}</span>
+            <span className="event-month">
+              {invitationDateParts.month}
+              <span className="event-year">{invitationDateParts.year}</span>
+            </span>
+          </span>
         </time>
         <div className="event-time">
-          <span className="event-time-label"><Camera size={14} strokeWidth={1.5} aria-hidden="true" />{invitation.timeLabel}</span>
-          <time dateTime={`${invitation.date}T${invitation.time}:00+07:00`}>{invitation.time}</time>
+          <span className="event-time-label">
+            <Camera size={14} strokeWidth={1.5} aria-hidden="true" />
+            {invitation.timeLabel}
+          </span>
+          <time dateTime={`${invitation.date}T${invitation.time}:00+07:00`}>
+            {invitation.time}
+          </time>
         </div>
       </div>
 
       <div className="event-venue">
         <span className="venue-label">ĐỊA ĐIỂM TỔ CHỨC</span>
         <p>{invitation.university}</p>
-        {invitation.location && <p className="venue-detail">{invitation.location}</p>}
-        {invitation.address && <p className="venue-detail">{invitation.address}</p>}
-        <a className="map-link" href={invitation.googleMapsUrl} target="_blank" rel="noopener noreferrer" aria-label="Xem đường đi trên Google Maps trong tab mới">Xem bản đồ <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden="true" /></a>
+        {invitation.location && (
+          <p className="venue-detail">{invitation.location}</p>
+        )}
+        {invitation.address && (
+          <p className="venue-detail">{invitation.address}</p>
+        )}
+        <a
+          className="map-link"
+          href={invitation.googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Xem đường đi trên Google Maps trong tab mới"
+        >
+          Xem bản đồ{" "}
+          <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden="true" />
+        </a>
       </div>
       <div className="invitation-contact">
-        <span className="contact-label">Liên hệ {invitation.fullName}</span>
-        <a className="contact-link" href={`tel:${invitation.contactPhone}`} aria-label={`Gọi ${invitation.fullName} theo số ${invitation.contactPhone}`}><Phone size={14} strokeWidth={1.5} aria-hidden="true" />{invitation.contactPhone}</a>
+        <span className="contact-label">Liên hệ</span>
+        <a
+          className="contact-link"
+          href={`tel:${invitation.contactPhone}`}
+          aria-label={`Gọi ${invitation.fullName} theo số ${invitation.contactPhone}`}
+        >
+          <Phone size={14} strokeWidth={1.5} aria-hidden="true" />
+          {invitation.contactPhone}
+        </a>
       </div>
       <div className="invitation-thanks">
         <p className="thanks-heading">Cảm ơn bạn.</p>
@@ -54,4 +91,3 @@ export function InvitationSection() {
     </section>
   );
 }
-

@@ -11,7 +11,7 @@ export const invitation = {
   university: "Trường Đại học Công nghệ Thông tin",
   date: "2026-11-25",
   time: "15:30",
-  timeLabel: "Chụp hình",
+  timeLabel: "Thời gian",
   contactPhone: "0984993503",
   location: "",
   address: "",
@@ -21,7 +21,8 @@ export const invitation = {
   thankYouMessage:
     "Cảm ơn bạn đã là một phần trong hành trình của mình. Có bạn chung vui, ngày tốt nghiệp sẽ trọn vẹn hơn.",
   portraitImagePath: "/images/graduation-still-life.png",
-  portraitImageAlt: "Ảnh minh họa mũ và sách tốt nghiệp tại vị trí dành cho ảnh chân dung",
+  portraitImageAlt:
+    "Ảnh minh họa mũ và sách tốt nghiệp tại vị trí dành cho ảnh chân dung",
   bannerImagePath: "/images/graduation-banner.png",
   stillLifeImagePath: "/images/graduation-still-life.png",
   universityLogoPath: "/images/uit-logo.png",
