@@ -18,5 +18,5 @@ export function CardImage({ src, alt, sizes, eager = false, fallback = "UIT · 2
     return <span className="image-fallback" role="img" aria-label={alt}>{fallback}</span>;
   }
 
-  return <Image src={src} alt={alt} fill sizes={sizes} loading={eager ? "eager" : "lazy"} onError={() => setFailed(true)} />;
+  return <Image src={src} alt={alt} fill sizes={sizes} draggable={false} loading={eager ? "eager" : "lazy"} onError={() => setFailed(true)} />;
 }

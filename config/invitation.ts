@@ -17,9 +17,9 @@ export const invitation = {
   address: "",
   googleMapsUrl: "https://maps.app.goo.gl/1yrgixfnLPWQzASEA",
   invitationMessage:
-    "Mời bạn đến chung vui và cùng mình lưu giữ khoảnh khắc đáng nhớ trong ngày tốt nghiệp.",
+    "Cùng mình chung vui và lưu giữ những khoảnh khắc đáng nhớ trong ngày tốt nghiệp.",
   thankYouMessage:
-    "Cảm ơn vì đã luôn đồng hành. Hẹn gặp bạn tại buổi lễ!",
+    "Cảm ơn bạn đã là một phần trong hành trình của mình. Có bạn chung vui, ngày tốt nghiệp sẽ trọn vẹn hơn.",
   portraitImagePath: "/images/graduation-still-life.png",
   portraitImageAlt: "Ảnh minh họa mũ và sách tốt nghiệp tại vị trí dành cho ảnh chân dung",
   bannerImagePath: "/images/graduation-banner.png",

@@ -1,6 +1,12 @@
 # Graduation Invitation
 
-Thiệp mời tốt nghiệp của Văn Phong, gồm đúng hai trang: bìa và nội dung buổi lễ. Thiệp dùng navy, giấy ivory và điểm vàng đồng, với Lora cho tên/ngày giờ và Geist cho nội dung. Trang thông tin có ô ảnh chân dung dọc 3:4, ảnh tạm là mũ và sách tốt nghiệp. Toàn bộ nút và nội dung nằm trong thiệp; nền bên ngoài để trống. Bìa mở theo nếp gấp bên trái. Dự án sử dụng Next.js App Router, TypeScript, Tailwind CSS và Motion for React; không cần backend, tài khoản hay database.
+Thiệp mời tốt nghiệp của Văn Phong gồm đúng hai trang: bìa và nội dung, cùng nằm trong một khung dọc tối đa 400×650 px trên cả desktop và mobile. Bìa lật 180° quanh nếp gấp bên trái để mở trang thông tin trong cùng khung. Khi màn hình thiếu chiều cao, nội dung có thể cuộn dọc.
+
+Bìa giới thiệu theo thứ tự: logo và chủ đề tốt nghiệp, tên Văn Phong, lời mời ngắn, ngày làm lễ 25.11.2026 và tên trường. Giờ chụp hình chỉ xuất hiện ở trang bên trong để tránh bị hiểu thành giờ bắt đầu buổi lễ.
+
+Trang nội dung mở bằng tiêu đề “Thân mời bạn” cạnh ảnh nhỏ dọc 3:4; Văn Phong là người gửi thiệp. Sau lời mời là ngày làm lễ, mốc “Chụp hình 15:30”, địa điểm với liên kết bản đồ liền kề, thông tin liên hệ, rồi lời cảm ơn ở cuối.
+
+Thiệp dùng bìa và nền ngoài navy, giấy nội dung ivory và điểm vàng đồng, với Lora cho tên/ngày giờ và Geist cho nội dung. Ảnh chân dung tạm là mũ và sách tốt nghiệp. Các góc giấy hỗ trợ kéo, chạm và bàn phím, không có chữ điều hướng trên giao diện. Toàn bộ nội dung nằm trong thiệp; nền bên ngoài để trống. Dự án sử dụng Next.js App Router, TypeScript, Tailwind CSS và Motion for React; không cần backend, tài khoản hay database.
 
 ## Chạy tại máy
 
@@ -63,12 +69,17 @@ Tên, năm và lời mời cũng được dùng cho metadata và ảnh Open Grap
 
 ## Điều hướng và khả năng truy cập
 
-- Mở bìa bằng nút mở thiệp, vuốt trái hoặc phím mũi tên phải.
-- Không dùng dấu X; nút chữ **Về bìa thiệp** nằm cuối trang nội dung, cạnh liên kết bản đồ. Không có thanh điều hướng bên ngoài.
-- Vuốt phải hoặc dùng phím mũi tên trái/Escape để đóng thiệp.
-- Chỉ có hai trạng thái, có khóa thao tác trong thời gian mở/đóng.
-- Focus chuyển sang trang nội dung khi mở và trở lại nút mở khi đóng bằng bàn phím.
-- Hoạt ảnh sử dụng transform/opacity và tôn trọng `prefers-reduced-motion`.
+- Nắm góc giấy ở bên phải bìa, kéo sang trái để mở. Bìa lật từ 0° đến −180° quanh nếp gấp, với mặt trước và mặt sau riêng; trang thông tin nằm cố định bên dưới.
+- Bìa và nội dung giữ cùng khung dọc trên desktop và mobile; mở thiệp không làm khung trải rộng.
+- Nắm góc giấy bên trong, kéo sang phải để khép bìa. Cảm ứng có thể kéo ngang trên vùng nội dung không phải liên kết; cuộn dọc vẫn hoạt động.
+- Thả tay sau khi kéo đủ xa hoặc kéo dứt khoát để hoàn tất. Kéo ngắn sẽ tự trở về trạng thái ban đầu; kéo ngược hoặc hủy thao tác không khóa thiệp.
+- Chạm góc giấy để mở/gấp nhanh; Tab rồi Enter/Space cũng kích hoạt góc giấy. Phím phải mở, phím trái/Escape khép; Escape trong lúc đang cầm mép giấy hủy lần kéo đó.
+- Góc giấy không có chữ hướng dẫn trên giao diện; vẫn có nhãn truy cập cho trình đọc màn hình. Khi thả, chuyển động có giảm chấn tiếp tục mở hoặc khép bìa về trạng thái ổn định.
+- Không có nút chữ nhật mở thiệp, nút Về bìa cũ hay dấu X. Không có thanh điều hướng bên ngoài.
+- Chỉ có hai trang bìa/nội dung; thao tác bị khóa trong lúc bìa tự hoàn tất chuyển động để tránh lật liên tục.
+- Focus chuyển sang trang nội dung khi mở và trở lại góc mở khi đóng. Kéo thử rồi trả lại không reset vị trí đang đọc; mở mới thì cuộn về đầu trang.
+- Hoạt ảnh sử dụng transform/opacity. Khi bật `prefers-reduced-motion`, thiệp mở/khép tức thì, không chạy chuyển động lật 3D.
+- Trang nội dung đặt ảnh cạnh tiêu đề “Thân mời bạn”, liên kết bản đồ ngay dưới địa điểm và số điện thoại trong phần liên hệ riêng. Lời cảm ơn khép lại trang; nội dung dài có thể cuộn dọc.
 - Layout hỗ trợ safe area và màn hình nhỏ từ 320 px.
 
 ## Cấu trúc
@@ -76,7 +87,7 @@ Tên, năm và lời mời cũng được dùng cho metadata và ảnh Open Grap
 ```text
 app/                       Trang chính, font, metadata, Open Graph và CSS
 components/invitation/     Điều hướng và khung thiệp
-components/sections/       CoverSection và InvitationSection đang được sử dụng
+components/sections/       Bìa và trang thông tin kèm ảnh/lời cảm ơn
 components/ui/             Thành phần giao diện dùng chung
 config/invitation.ts       Cấu hình nội dung
 lib/animations.ts          Cấu hình hoạt ảnh

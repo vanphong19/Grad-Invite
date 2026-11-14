@@ -1,5 +1,87 @@
 # Báo cáo triển khai và kiểm tra
 
+## Điều chỉnh cuối: bỏ chữ ký
+
+Đã bỏ tên Văn Phong dưới lời cảm ơn và CSS của chữ ký theo yêu cầu. Phần kết chỉ còn tiêu đề và lời cảm ơn. Các kết quả kiểm tra chữ ký bên dưới thuộc phiên bản trước điều chỉnh này.
+
+## Hiện tại: thứ tự đọc và ý nghĩa lời mời
+
+Bìa đi theo thứ tự: logo/chủ đề → tên Văn Phong → lời mời ngắn → ngày làm lễ và trường. Gom banner và tên thành một nhóm thị giác, dành chân bìa riêng cho ngày/địa điểm. Không ghi 15:30 trên bìa để tránh nhầm thành giờ bắt đầu lễ.
+
+Trang trong dùng heading “Thân mời bạn” thay cho tên Văn Phong dưới dòng kính mời, xác định đúng người gửi và người nhận. Thứ tự: lời mời → ngày làm lễ 25/11/2026 và nhãn Chụp hình 15:30 → trường + bản đồ liền kề → liên hệ Văn Phong → cảm ơn và chữ ký Văn Phong. Ngày lễ có trọng lượng lớn hơn giờ chụp hình; nhãn giờ có icon máy ảnh. Bố cục vẫn có hai trang trong khung dọc 400×650 px, giữ nguyên cơ chế mở thiệp.
+
+- Lint, typecheck, production build: PASS.
+- 20/20 trường hợp responsive (bìa/nội dung × 10 viewport) PASS: trong viewport, không tràn ngang, không chồng các khối theo thứ tự đọc, link có vùng chạm ≥44 px.
+- 8/8 kiểm tra nội dung và thao tác PASS: tên người gửi, ngày bìa, lời mời đúng người nhận, nhãn chụp hình/ISO time, map cạnh địa điểm, liên hệ riêng, chữ ký có thể đọc ở 320×568 và kéo mở thiệp.
+- Không runtime error, console error hay warning trong context production cuối. Ảnh nhỏ trang trong dùng lazy loading để tránh preload ảnh phụ khi bìa còn đóng.
+- 375×667 và các viewport portrait lớn hơn đã kiểm tra đọc trọn nội dung không cần cuộn; 320×568, 360×640 và landscape có cuộn. Chưa đo FPS hay kiểm tra trên thiết bị iOS/Android thật.
+- Bằng chứng: `artifacts/hierarchy-final-qa.json`, `hierarchy-cover.png`, `hierarchy-inside.png`, `hierarchy-mobile-cover.png`, `hierarchy-mobile-inside.png`.
+
+Các phần sau là lịch sử những phiên bản trước.
+
+## Phiên bản trước: thiệp dọc gọn trong một khung
+
+Theo hướng bố cục của link tham chiếu do chủ thiệp cung cấp, cả bìa và nội dung dùng chung khung dọc tối đa 400×650 px, luôn nằm giữa nền navy trống. Giữ navy/ivory/vàng đồng và hình ảnh của dự án. Bỏ spread desktop 900 px, dịch chuyển căn giữa, mặt sau chứa nội dung trùng. Bìa vẫn lật đủ 180° trong khung cố định; góc giấy giữ thao tác chạm, kéo và bàn phím, không có chữ hướng dẫn.
+
+Trang thông tin gom tên và ảnh 3:4 vào cùng header, ngày lễ và giờ chụp hình chung hàng, bản đồ và số điện thoại chung hàng, lời cảm ơn ở cuối. Chỉ render một ảnh chân dung và một phần cảm ơn. Màn hình nhỏ cho phép cuộn, không ẩn nội dung. Giữ nguyên ngày làm lễ 25/11/2026, chụp hình 15:30, trường, map và số điện thoại.
+
+- `npm run lint`, `npm run typecheck`, `npm run build`: PASS.
+- Responsive: 20/20 trường hợp (10 viewport × bìa/nội dung) PASS tại 320×568, 360×640, 375×667, 390×844, 430×932, 640×800, 641×800, 768×1024, 1440×900, 667×375. Khung luôn trong viewport, không tràn ngang, hit area góc giấy ≥44 px. Nội dung không cần cuộn từ 360×640 trong các viewport portrait đã kiểm tra; 320×568 và landscape có cuộn.
+- Chuột, bàn phím và nội dung: 11/11 PASS, gồm khung không đổi kích thước khi mở, full half-turn, kéo mở/gấp, kéo ngắn, Escape hủy, focus, chống lật liên tiếp, dữ liệu sự kiện và không text điều hướng. Reduced motion được dùng trong ma trận responsive.
+- Cảm ứng native mô phỏng qua Chromium CDP tại 320×568: 8/8 PASS, gồm mở/gấp, kéo ngắn, hủy, tap sau hủy, cuộn dọc và đọc đủ lời cảm ơn.
+- Không có runtime error, console error hay warning trong context production kiểm tra.
+- Bằng chứng: `artifacts/compact-final-qa.json`, `compact-touch-qa.json`, `compact-cover.png`, `compact-inside.png`, `compact-mobile-inside.png`.
+
+Chưa đo FPS hay kiểm tra thiết bị iOS/Android thật. Các phần bên dưới ghi lại các bản trước, không phải bố cục hiện tại.
+
+## Phiên bản trước: mở thiệp gấp đủ 180° và thêm lời cảm ơn
+
+Thay kiểu bìa xoay 90° rồi biến mất bằng một tờ bìa có hai mặt, lật quanh gáy trái từ 0 đến −180°. Không fade bìa trong quá trình mở. Desktop khép rộng tối đa 450 px ở giữa nền; mở thành spread tối đa 900 px: mặt trong bìa có ảnh 3:4 và lời cảm ơn, trang phải giữ thông tin buổi lễ. Khi bắt đầu kéo, giữ vị trí gáy rồi mới căn giữa spread theo đường smoothstep. MotionValue điều khiển góc quay, bóng gáy và vị trí; spring giảm chấn tiếp nhận vận tốc lúc thả tay. Giữ khóa chuyển động, pointer capture, xử lý hủy kéo, focus bàn phím và reduced motion.
+
+Mobile giữ nội dung trong một trang vừa viewport: ảnh ở đầu, thông tin và lời cảm ơn phía dưới, cuộn được khi thiếu chiều cao. Mặt trong bìa ra ngoài viewport được ẩn nội dung khỏi accessibility tree bằng visibility:hidden; nền giấy vẫn hiện trong lúc lật. Không thêm chữ hướng dẫn vào góc giấy. Cảm ơn luôn có thể đọc được ở màn hình ngắn, thay vì bị display:none như trước. Đã gỡ ảnh phụ ẩn ở bìa cũ để tránh tải/preload ảnh không dùng.
+
+- `npm run lint`, `npm run typecheck`, `npm run build`: PASS trên source cuối.
+- Chuột/bàn phím/reduced motion/nội dung: 14/14 PASS trong Chromium production. Bao gồm góc kết thúc 180°, mặt sau còn hiện sau khi vượt 90°, mở/gấp bằng kéo và click, kéo ngắn trả lại, Escape hủy, focus, phone/map và góc không có chữ.
+- Cảm ứng mô phỏng native qua Chromium CDP: 9/9 PASS. Bao gồm mở/gấp, kéo ngắn, touchcancel, tap, cuộn dọc, đọc trọn lời cảm ơn, ẩn phần offscreen và không lỗi runtime/console.
+- Kiểm tra bố cục tại 320×568, 375×667, 390×844, 640×800, 641×800, 768×1024, 1024×768, 1440×900 và 667×375: 18/18 trường hợp (bìa/nội dung) PASS; không tràn ngang, nội dung ngày/giờ không overflow, lời cảm ơn không bị ẩn. Màn hình thấp cho phép cuộn. Bản production cuối không có runtime error hay console warning; khóa lật liên tiếp PASS. Kết quả lưu tại `artifacts/book-final-qa.json`.
+- Ảnh kiểm tra: `artifacts/book-cover.png`, `book-open.png`, `book-mid-turn.png`, `book-mobile-inside.png`.
+
+Chưa đo FPS và chưa kiểm tra trên thiết bị iOS Safari/Android Chrome thật. Các mục bên dưới là lịch sử kiểm tra những phiên bản trước, không mô tả hiệu ứng hiện tại.
+
+## Bỏ chữ góc giấy và làm mượt chuyển động
+
+Đã bỏ toàn bộ chữ hướng dẫn ở hai góc giấy; giữ biểu tượng bàn tay và nhãn aria-label. Thu gọn vùng góc còn 82×82 px trên desktop và 76×76 px trên mobile, vẫn lớn hơn 44×44 px. Xóa lớp mặt sau không còn dùng và hiệu ứng dịch chuyển góc khi hover.
+
+Đổi tiến độ từ góc quay tuyến tính sang vị trí mép giấy được chiếu qua phối cảnh. ResizeObserver cung cấp kích thước thiệp, công thức quay được tính từ tiến độ và khoảng phối cảnh 4500 px để mép tự do bám con trỏ. Bìa xoay ra xa đến 90 độ, không còn nhịp nâng y hay độ phóng lớn giữa chừng. Khi thả, spring có giảm chấn nhận vận tốc kéo đã lọc/giới hạn; opacity chỉ ẩn phần mép rất nhỏ ở cuối. Giữ GPU layer cho transform/opacity. Focus frame chỉ xuất hiện với điều hướng bàn phím.
+
+- Lint, typecheck, production build: PASS.
+- Chuột/keyboard/reduced motion/nội dung: 16/16 PASS. Sáu điểm kéo 5, 15, 40, 90, 180 và 270 px trong Chromium production có sai số vị trí mép giấy 0 px ở các mẫu đo.
+- Cảm ứng native qua CDP: 7/7 PASS, gồm mở/khép, trả lại khi kéo ngắn, touchcancel, tap và cuộn dọc.
+- Responsive: 14/14 PASS trên hai trang × 7 viewport; không tràn ngang/cắt chữ, không có text trong góc giấy, góc nằm trong khung và đủ kích thước chạm.
+- Không có console/runtime errors trong các context production kiểm tra. Bàn phím vẫn có focus indication, thao tác kéo không làm lóe khung focus sau khi thả.
+
+Bằng chứng: `artifacts/smooth-mouse-qa.json`, `artifacts/smooth-touch-layout-qa.json`, `artifacts/smooth-corner-cover.png`, `artifacts/smooth-corner-inside.png`. Các ảnh `hand-opening-*` thuộc bản trước khi bỏ chữ. Chưa đo FPS và chưa kiểm tra trên iOS Safari/Android Chrome thật; các kiểm tra liên tục mép giấy là kiểm tra vị trí, không phải benchmark FPS. Dev server của chủ thiệp vẫn được giữ nguyên.
+
+## Mở và gấp thiệp bằng thao tác cầm giấy
+
+Thay nút mở và Về bìa bằng hai góc giấy tương tác có dấu bàn tay nhỏ. Kéo góc phải của bìa sang trái để mở, kéo mép trái bên trong sang phải để khép. Bìa theo ngón tay/con trỏ trước khi thả. Kéo đủ xa hoặc vuốt dứt khoát thì hoàn tất; kéo ngắn thì trở về trạng thái cũ. Hỗ trợ chạm, bàn phím và reduced motion; giữ hai trang, không tạo điều hướng ngoài thiệp.
+
+Triển khai bằng Pointer Events, pointer capture và một MotionValue tiến độ. Transform, độ nâng và opacity lấy từ tiến độ; không cập nhật React state theo từng lần dịch chuyển con trỏ. Có xử lý kéo sai hướng, touchcancel, mất pointer capture, Escape và blur; chặn click phát sinh sau khi kéo/hủy. Cuộn dọc không gấp thiệp, hủy kéo khép giữ vị trí đang đọc. Ảnh không bị kéo theo cơ chế drag ảnh của trình duyệt.
+
+File thay đổi: `components/invitation/invitation-experience.tsx`, `components/sections/cover.tsx`, `components/sections/invitation.tsx`, `components/ui/card-image.tsx`, `app/globals.css`, `README.md`.
+
+| Kiểm tra bản cầm giấy | Kết quả |
+| --- | --- |
+| Lint / typecheck / production build | PASS |
+| Chuột, click, bàn phím, hủy và reduced motion | 23/23 PASS |
+| Cảm ứng native qua CDP trong Chromium mobile context | 11/11 PASS |
+| Responsive hai trang × 7 viewport | 14/14 PASS |
+| Console/runtime trong các context kiểm tra production | 0 errors, 0 warnings |
+
+Viewport: 320×568, 375×667, 390×844, 768×1024, 1366×768, 1440×900 và 667×375. Góc giấy nằm trong khung, vùng chạm ít nhất 44×44; không tràn ngang, không cắt chữ ngang và không che các liên kết đang nhìn thấy. Đã xác minh giữ và kéo trước khi thả, mở/khép bằng native touch, short-pull, kéo ngược, hủy cảm ứng, Escape/blur khi đang kéo, tap/click, Enter, phím trái/phải, giảm chuyển động và giữ/reset scroll đúng lúc. Ngày làm lễ, giờ chụp hình, số điện thoại và Maps được giữ nguyên.
+
+Bằng chứng: `artifacts/hand-mouse-qa.json`, `artifacts/hand-touch-qa.json`, `artifacts/hand-responsive-qa.json`. Có năm screenshot mới cho riêng tương tác này trong `artifacts/hand-opening-*.png`, khác với bộ screenshot cũ đã dọn. Production test dùng cổng 3017 riêng; dev server có sẵn ở cổng 3000 được giữ nguyên. Chưa kiểm tra thiết bị iOS Safari/Android Chrome thật và chưa đo FPS.
+
 ## Dọn ảnh theo yêu cầu
 
 Đã xóa `public/images/graduation-editorial.png`, `public/images/portrait-placeholder.svg` và 66 ảnh chụp kiểm tra trong `artifacts/`, giải phóng khoảng 7,76 MiB. Đã bỏ trường cấu hình `artworkImagePath` không còn được dùng. Ba ảnh đang phục vụ website và các file trong `assets/` được giữ nguyên; báo cáo JSON kiểm tra vẫn được giữ. Các đường dẫn screenshot trong phần lịch sử phía dưới không còn tồn tại sau lần dọn này.
