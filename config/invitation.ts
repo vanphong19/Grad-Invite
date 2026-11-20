@@ -10,16 +10,16 @@ export const invitation = {
   graduationYear: 2026,
   university: "Trường Đại học Công nghệ Thông tin",
   date: "2026-11-25",
-  time: "15:30",
+  time: "16:00",
   timeLabel: "Thời gian",
   contactPhone: "0984993503",
   location: "",
   address: "",
   googleMapsUrl: "https://maps.app.goo.gl/1yrgixfnLPWQzASEA",
   invitationMessage:
-    "Cùng mình chung vui và lưu giữ những khoảnh khắc đáng nhớ trong ngày tốt nghiệp.",
+    "Mình rất mong có bạn bên cạnh trong ngày tốt nghiệp, cùng chia sẻ niềm vui và chụp vài tấm hình để lưu lại kỷ niệm về một ngày thật đặc biệt.",
   thankYouMessage:
-    "Cảm ơn bạn đã là một phần trong hành trình của mình. Có bạn chung vui, ngày tốt nghiệp sẽ trọn vẹn hơn.",
+    "Cảm ơn bạn vì những tình cảm và sự quan tâm đã dành cho mình. Ngày tốt nghiệp sẽ càng ý nghĩa khi có bạn đến chung vui. Mong được gặp bạn và cùng lưu lại những kỷ niệm đẹp!",
   portraitImagePath: "/images/graduation-still-life.png",
   portraitImageAlt:
     "Ảnh minh họa mũ và sách tốt nghiệp tại vị trí dành cho ảnh chân dung",
